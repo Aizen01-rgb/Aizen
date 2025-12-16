@@ -1,4 +1,56 @@
 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>موقعي</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #1f1f1f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .logo-box {
+      text-align: center;
+    }
+
+    .logo-box img {
+      width: 180px;
+      max-width: 80%;
+      filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.6));
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    h1 {
+      color: #ffd700;
+      margin-top: 15px;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-box">
+    <img src="logo.png" alt="Logo">
+    <h1>اسم السيت ديالك</h1>
+  </div>
+
+</body>
+</html>
+
   
 </style>
 

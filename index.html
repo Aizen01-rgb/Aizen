@@ -5,141 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>بطولة PES Mobile</title>
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Tahoma, Arial, sans-serif;
-}
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
+<style>
 body{
-  background:radial-gradient(circle at top,#1a1a1a,#000);
+  margin:0;
+  font-family:Tahoma, Arial;
+  background:#000;
   color:#fff;
 }
-
-/* HEADER */
 .header{
   text-align:center;
-  padding:25px;
+  padding:20px;
   border-bottom:1px solid #333;
 }
-.logo{
-  width:90px;
-  height:90px;
-  margin:auto;
-  margin-bottom:10px;
-}
-.logo img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-.header h1{
-  color:#d4af37;
-}
-
-/* CARD */
+h1{color:#d4af37}
 .card{
   background:#111;
-  margin:25px 15px;
+  margin:20px;
   padding:20px;
-  border-radius:18px;
-  box-shadow:0 0 25px rgba(212,175,55,.2);
+  border-radius:15px;
 }
-.card p{
-  text-align:center;
-  color:#ccc;
-}
-.info{
-  margin-top:15px;
-  border-top:1px solid #333;
-  padding-top:10px;
-}
-.info div{
-  display:flex;
-  justify-content:space-between;
-  font-size:14px;
-  padding:6px 0;
-}
-.info span{color:#d4af37}
-
-/* COUNTDOWN */
-.countdown{
-  display:flex;
-  justify-content:space-between;
-  margin-top:15px;
-}
-.time-box{
-  background:#000;
-  width:22%;
-  padding:10px;
-  border-radius:12px;
-  text-align:center;
-}
-.time-box span{
-  font-size:20px;
-  color:#d4af37;
-  font-weight:bold;
-}
-
-/* PRICE */
-.price{
-  text-align:center;
-  margin-top:12px;
-  color:#aaa;
-}
-.price span{color:#d4af37;font-weight:bold}
-
-/* BUTTON */
-.btn{
-  text-align:center;
-  margin-top:20px;
-}
-.btn button{
+.btn{text-align:center;margin-top:15px}
+button{
   padding:15px 35px;
   font-size:18px;
   font-weight:bold;
   border:none;
   border-radius:40px;
+  background:#d4af37;
   cursor:pointer;
-  background:linear-gradient(145deg,#d4af37,#a8842b);
-  box-shadow:0 6px 0 #6e5718;
 }
-
-/* TEAMS */
 .teams{
   display:none;
-  margin:25px 15px;
-}
-.teams h2{
-  text-align:center;
-  color:#d4af37;
-  margin-bottom:15px;
-}
-.team-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  margin:20px;
 }
 .team{
   background:#111;
   padding:12px;
+  margin-bottom:8px;
   border-radius:12px;
   text-align:center;
-  cursor:pointer;
   border:1px solid #333;
+  cursor:pointer;
 }
 .team:hover{
   border-color:#d4af37;
-}
-
-/* FOOTER */
-.footer{
-  text-align:center;
-  font-size:12px;
-  color:#666;
-  margin-bottom:20px;
 }
 </style>
 </head>
@@ -147,71 +60,38 @@ body{
 <body>
 
 <div class="header">
-  <div class="logo">
-    <img src="logo.png">
-  </div>
   <h1>بطولة PES Mobile</h1>
 </div>
 
 <div class="card">
-  <p>تنظيم احترافي – تنافس نزيه</p>
-
-  <div class="info">
-    <div><span>📅 البداية:</span> 20 / 12 / 2025</div>
-    <div><span>👥 عدد اللاعبين:</span> 32</div>
-    <div><span>🎮 النظام:</span> إقصائيات</div>
-  </div>
-
-  <div class="countdown">
-    <div class="time-box"><span id="days">00</span></div>
-    <div class="time-box"><span id="hours">00</span></div>
-    <div class="time-box"><span id="minutes">00</span></div>
-    <div class="time-box"><span id="seconds">00</span></div>
-  </div>
-
-  <div class="price">
-    💰 تمن الإشتراك: <span>5 درهم</span>
-  </div>
+  <p>💰 تمن الإشتراك: <b style="color:#d4af37">5 درهم</b></p>
+  <p>🏆 مجموع الجوائز: <b style="color:#d4af37">100 درهم</b></p>
 
   <div class="btn">
     <button onclick="showTeams()">سجّل الآن</button>
   </div>
 </div>
 
-<!-- TEAMS -->
 <div class="teams" id="teamsSection">
-  <h2>⚽ اختر فريقك</h2>
-  <div class="team-grid" id="teams"></div>
-</div>
-
-<div class="footer">
-  © 2025 PES Tournament
+  <h3 style="color:#d4af37;text-align:center">⚽ اختر فريقك</h3>
+  <div id="teams"></div>
 </div>
 
 <script>
-/* COUNTDOWN */
-const targetDate = new Date("December 20, 2025 20:00:00").getTime();
-setInterval(()=>{
-  const now=new Date().getTime();
-  const d=targetDate-now;
-  if(d<0) return;
-  days.innerHTML=Math.floor(d/(1000*60*60*24));
-  hours.innerHTML=Math.floor((d%(1000*60*60*24))/(1000*60*60));
-  minutes.innerHTML=Math.floor((d%(1000*60*60))/(1000*60));
-  seconds.innerHTML=Math.floor((d%(1000*60))/1000);
-},1000);
+/* ================= FIREBASE CONFIG ================= */
+const firebaseConfig = {
+  apiKey: "API_KEY",
+  authDomain: "PROJECT_ID.firebaseapp.com",
+  projectId: "PROJECT_ID"
+};
 
-/* SHOW TEAMS */
-function showTeams(){
-  document.getElementById("teamsSection").style.display="block";
-  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-}
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-/* WHATSAPP NUMBER */
-const whatsappNumber="212620792482"; // ❗ بدّل الرقم ديالك
+/* ================= SETTINGS ================= */
+const whatsappNumber = "212600000000"; // بدل الرقم ديالك
 
-/* ALL TEAMS */
-const allTeams=[
+const allTeams = [
 "Barcelona","Real Madrid","Man City","Liverpool","Chelsea","PSG",
 "Bayern","Juventus","Inter","Milan","Arsenal","Napoli",
 "Atletico","Dortmund","Ajax","Porto",
@@ -221,32 +101,44 @@ const allTeams=[
 "Fenerbahce","Al Nassr","Al Hilal","Al Ahly"
 ];
 
-/* GET SAVED TEAMS */
-let selectedTeams=JSON.parse(localStorage.getItem("selectedTeams"))||[];
+/* ================= SHOW TEAMS ================= */
+function showTeams(){
+  document.getElementById("teamsSection").style.display="block";
+}
 
-/* FILTER */
-const availableTeams=allTeams.filter(t=>!selectedTeams.includes(t));
+/* ================= LOAD TEAMS (REALTIME) ================= */
+db.collection("teams").onSnapshot(snapshot=>{
+  const takenTeams = snapshot.docs.map(doc => doc.id);
+  const container = document.getElementById("teams");
+  container.innerHTML = "";
 
-/* RENDER */
-const grid=document.getElementById("teams");
-availableTeams.forEach(team=>{
-  const div=document.createElement("div");
-  div.className="team";
-  div.innerText=team;
-  div.onclick=()=>{
-    selectedTeams.push(team);
-    localStorage.setItem("selectedTeams",JSON.stringify(selectedTeams));
+  allTeams.forEach(team=>{
+    if(!takenTeams.includes(team)){
+      const div = document.createElement("div");
+      div.className = "team";
+      div.innerText = team;
+      div.onclick = ()=> selectTeam(team);
+      container.appendChild(div);
+    }
+  });
+});
 
-    const msg=`سلام،
+/* ================= SELECT TEAM ================= */
+function selectTeam(team){
+  db.collection("teams").doc(team).set({
+    taken: true,
+    takenAt: Date.now()
+  }).then(()=>{
+    const msg =
+`سلام،
 بغيت نسجّل فبطولة PES Mobile
 الفريق المختار: ${team}
 تمن الإشتراك: 5 درهم`;
 
-    window.location.href=
+    window.location.href =
       `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
-  };
-  grid.appendChild(div);
-});
+  });
+}
 </script>
 
 </body>

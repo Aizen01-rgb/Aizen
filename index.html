@@ -1,87 +1,127 @@
-<!doctype html>
-<html lang="ar"> 
- <head><style type="text/css" id="dcoder_stylesheet">body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b0b0b;
-  color: white;
-  text-align: center;
-}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بطولة PES Mobile</title>
 
-header {
-  background: linear-gradient(90deg, #0f9d58, #1a73e8);
-  padding: 30px;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      text-align: center;
+    }
 
-section {
-  padding: 20px;
-  margin: 15px;
-  background: #151515;
-  border-radius: 10px;
-}
+    .container {
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
 
-h2 {
-  color: #0f9d58;
-}
+    h1 {
+      font-size: 28px;
+      color: #00ffcc;
+      margin-bottom: 10px;
+    }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
+    .card {
+      background: rgba(0,0,0,0.4);
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
 
-.btn {
-  display: inline-block;
-  padding: 12px 25px;
-  background: #0f9d58;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-}
+    .info {
+      margin: 10px 0;
+      font-size: 16px;
+    }
 
-.btn:hover {
-  background: #0c7c45;
-}
+    .countdown {
+      font-size: 20px;
+      margin: 15px 0;
+      color: #ffdd57;
+    }
 
-footer {
-  padding: 15px;
-  font-size: 14px;
-  color: #aaa;
-}</style></head> 
- <body> 
-  <h1> Hello </h1> 
-  <div> 
-   <p>أقوى بطولة بيس موبايل – سجّل ونافس الأبطال</p> 
-   <br> AGLOCH - AFRARAY - ELHADY - ZNBI 
-  </div> 
-  <meta charset="UTF-8"> 
-  <title>بطولة PES Mobile</title> 
-  <meta name="description" content="إعلان بطولة PES Mobile – جوائز، قوانين، وتسجيل"> 
-  <link rel="stylesheet" href="style.css"> 
-  <header> 
-   <h1>🏆 بطولة PES Mobile 🏆</h1> 
-   <p>أقوى بطولة لعشاق بيس موبايل</p> 
-  </header> 
-  <section class="info"> 
-   <h2>📅 معلومات البطولة</h2> 
-   <ul> 
-    <li>📆 التاريخ: 20 ديسمبر 2025</li> 
-    <li>⏰ الوقت: 21:00 ليلاً</li> 
-    <li>🎮 اللعبة: PES Mobile</li> 
-    <li>🌍 أونلاين</li> 
-   </ul> 
-  </section> 
-  <section class="rules"> 
-   <h2>📜 القوانين</h2> 
-   <p> • لعب نزيه ❌ بدون غش<br> • الإقصاء المباشر<br> • احترام الخصم واجب </p> 
-  </section> 
-  <section class="prizes"> 
-   <h2>🎁 الجوائز</h2> 
-   <p> 🥇 المركز الأول: 50$<br> 🥈 المركز الثاني: 25$<br> 🥉 المركز الثالث: 10$ </p> 
-  </section> 
-  <section class="register"> 
-   <h2>📝 التسجيل</h2> 
-   <p>للتسجيل اضغط على الزر</p> <a href="https://wa.me/+212 779-225334" class="btn">سجّل الآن</a> 
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 15px 25px;
+      background: #00ffcc;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #00ccaa;
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>🏆 بطولة PES Mobile 🏆</h1>
+    <p>فرصتك باش تبيّن المهارة ديالك وتربح جوائز 💥</p>
+
+    <div class="card">
+      <div class="info">📅 التاريخ: 25 دجنبر 2025</div>
+      <div class="info">⏰ الوقت: 21:00 مساءً</div>
+      <div class="info">🎮 اللعبة: PES Mobile</div>
+      <div class="info">🏅 الجائزة: 300 درهم</div>
+
+      <div class="countdown" id="countdown">
+        جاري حساب الوقت...
+      </div>
+
+      <a class="btn" href="https://wa.me/212600000000" target="_blank">
+        🔥 سجّل دابا عبر واتساب
+      </a>
+    </div>
+
+    <footer>
+      © 2025 بطولة PES Mobile
+    </footer>
+  </div>
+
+  <script>
+    // غير التاريخ هنا
+    const eventDate = new Date("Dec 25, 2025 21:00:00").getTime();
+
+    const timer = setInterval(function () {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        document.getElementById("countdown").innerHTML = "⛔ التسجيل تسد";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML =
+        `⏳ باقي ${days}ي ${hours}س ${minutes}د ${seconds}ت`;
+    }, 1000);
+  </script>
+
+</body>
+</html>
   </section> 
   <footer> 
    <p>© 2025 PES Mobile Tournament</p> 

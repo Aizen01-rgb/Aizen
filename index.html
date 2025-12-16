@@ -2,10 +2,14 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>بطولة PES Mobile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -16,56 +20,88 @@
 
     .container {
       padding: 20px;
-      max-width: 500px;
-      margin: auto;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
-      font-size: 28px;
-      color: #00ffcc;
-      margin-bottom: 10px;
+      color: #1affd5;
+      text-shadow: 0 0 15px rgba(26, 255, 213, 0.7);
+    }
+
+    .subtitle {
+      margin-bottom: 20px;
+      opacity: 0.9;
     }
 
     .card {
-      background: rgba(0,0,0,0.4);
-      padding: 20px;
-      border-radius: 15px;
-      margin-top: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 420px;
+      margin: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      animation: float 4s ease-in-out infinite;
     }
 
-    .info {
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    .card p {
       margin: 10px 0;
-      font-size: 16px;
     }
 
     .countdown {
-      font-size: 20px;
-      margin: 15px 0;
-      color: #ffdd57;
+      color: #ffd700;
+      font-weight: bold;
+      margin-top: 10px;
     }
 
-    .btn {
+    /* زر 3D */
+    .btn-3d {
       display: inline-block;
       margin-top: 20px;
-      padding: 15px 25px;
-      background: #00ffcc;
-      color: #000;
-      text-decoration: none;
+      padding: 15px 30px;
+      background: linear-gradient(145deg, #1affd5, #0fb9a8);
+      color: #003b3b;
       font-weight: bold;
-      border-radius: 30px;
-      transition: 0.3s;
+      text-decoration: none;
+      border-radius: 50px;
+      box-shadow:
+        0 8px 0 #0a7f74,
+        0 15px 25px rgba(0,0,0,0.4);
+      transition: all 0.2s ease;
     }
 
-    .btn:hover {
-      background: #00ccaa;
-      transform: scale(1.05);
+    .btn-3d:hover {
+      filter: brightness(1.1);
+    }
+
+    .btn-3d:active {
+      transform: translateY(6px);
+      box-shadow:
+        0 3px 0 #0a7f74,
+        0 8px 15px rgba(0,0,0,0.4);
     }
 
     footer {
-      margin-top: 30px;
-      font-size: 12px;
-      opacity: 0.7;
+      margin-top: 25px;
+      font-size: 13px;
+      opacity: 0.6;
     }
   </style>
 </head>
@@ -74,48 +110,22 @@
 
   <div class="container">
     <h1>🏆 بطولة PES Mobile 🏆</h1>
-    <p>فرصتك باش تبيّن المهارة ديالك وتربح جوائز 💥</p>
+    <p class="subtitle">🔥 فرصتك باش تبين المهارة ديالك وتربح جوائز 🔥</p>
 
     <div class="card">
-      <div class="info">📅 التاريخ: 25 دجنبر 2025</div>
-      <div class="info">⏰ الوقت: 21:00 مساءً</div>
-      <div class="info">🎮 اللعبة: PES Mobile</div>
-      <div class="info">🏅 الجائزة: ؟؟؟ درهم</div>
+      <p>📅 التاريخ: 25 دجنبر 2025</p>
+      <p>⏰ الوقت: 21:00 مساء</p>
+      <p>🎮 اللعبة: PES Mobile</p>
+      <p>🥇 الجائزة: 💰 درهم</p>
+      <p class="countdown">⏳ باقي 5 أيام 3 ساعات</p>
 
-      <div class="countdown" id="countdown">
-        جاري حساب الوقت...
-      </div>
-
-      <a class="btn" href="https://wa.me/212779225334" target="_blank">
-        🔥 سجّل دابا عبر واتساب
+      <a href="https://wa.me/212600000000" class="btn-3d">
+        🔥 سجّل دابا عبر واتساب 🔥
       </a>
     </div>
 
-    <footer>
-      © 2025 بطولة PES Mobile
-    </footer>
+    <footer>© 2025 بطولة PES Mobile</footer>
   </div>
 
-  <script>
-    // غير التاريخ هنا
-    const eventDate = new Date("Dec 25, 2025 21:00:00").getTime();
-
-    const timer = setInterval(function () {
-      const now = new Date().getTime();
-      const distance = eventDate - now;
-
-      if (distance < 0) {
-        clearInterval(timer);
-        document.getElementById("countdown").innerHTML = "⛔ التسجيل تسد";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById("countdown").innerHTML =
-        `⏳ باقي ${days}ي ${hours}س ${minutes}د ${seconds}ت`;
-    }, 1000);
-  </script>
+</body>
+</html>

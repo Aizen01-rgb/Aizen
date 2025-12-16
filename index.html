@@ -1,190 +1,292 @@
 
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>موقعي</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بطولة PES Mobile</title>
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: #1f1f1f;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Tahoma, Arial, sans-serif;
+}
 
-    .logo-box {
-      text-align: center;
-    }
+body{
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  color:#fff;
+  min-height:100vh;
+}
 
-    .logo-box img {
-      width: 180px;
-      max-width: 80%;
-      filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.6));
-      animation: float 3s ease-in-out infinite;
-    }
+/* HEADER */
+.header{
+  padding:25px;
+  text-align:center;
+  border-bottom:1px solid #333;
+}
 
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
+.logo{
+  width:90px;
+  height:90px;
+  margin:auto;
+  margin-bottom:15px;
+}
 
-    h1 {
-      color: #ffd700;
-      margin-top: 15px;
-      letter-spacing: 2px;
-    }
-  </style>
-</head>
-<body>
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
 
-  <div class="logo-box">
-    <img src="logo.png" alt="Logo">
-    <h1>اسم السيت ديالك</h1>
-  </div>
+.header h1{
+  color:#d4af37;
+  font-size:26px;
+}
 
-</body>
-</html>
+/* CARD */
+.card{
+  background: linear-gradient(145deg, #0f0f0f, #1c1c1c);
+  margin:25px 15px;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 0 25px rgba(212,175,55,0.15);
+}
 
-  
+.card p{
+  text-align:center;
+  color:#ccc;
+  line-height:1.8;
+  font-size:15px;
+}
+
+/* INFO */
+.info{
+  margin-top:20px;
+  border-top:1px solid #333;
+  padding-top:15px;
+}
+
+.info div{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  font-size:14px;
+}
+
+.info span{
+  color:#d4af37;
+}
+
+/* COUNTDOWN */
+.countdown{
+  display:flex;
+  justify-content:space-between;
+  margin-top:20px;
+}
+
+.time-box{
+  background:#111;
+  width:22%;
+  padding:12px 5px;
+  border-radius:14px;
+  text-align:center;
+}
+
+.time-box span{
+  display:block;
+  font-size:22px;
+  font-weight:bold;
+  color:#d4af37;
+}
+
+/* BUTTON */
+.btn{
+  margin-top:25px;
+  text-align:center;
+}
+
+.btn a{
+  display:inline-block;
+  padding:16px 35px;
+  background:linear-gradient(145deg,#d4af37,#a8842b);
+  color:#000;
+  font-weight:bold;
+  border-radius:40px;
+  text-decoration:none;
+  font-size:18px;
+  box-shadow:0 8px 0 #6e5718;
+}
+
+/* PRICE */
+.price{
+  margin-top:15px;
+  text-align:center;
+  font-size:15px;
+  color:#aaa;
+}
+
+.price span{
+  color:#d4af37;
+  font-weight:bold;
+}
+
+/* WINNERS */
+.winners{
+  margin:20px 15px;
+}
+
+.winners h2{
+  text-align:center;
+  color:#d4af37;
+  margin-bottom:15px;
+}
+
+.winner-box{
+  background:#111;
+  padding:15px;
+  border-radius:14px;
+  margin-bottom:10px;
+  display:flex;
+  justify-content:space-between;
+}
+
+/* TEAMS */
+.teams{
+  margin:25px 15px;
+}
+
+.teams h2{
+  text-align:center;
+  color:#d4af37;
+  margin-bottom:15px;
+}
+
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.team{
+  background:#111;
+  padding:12px;
+  text-align:center;
+  border-radius:12px;
+  cursor:pointer;
+  border:1px solid #333;
+}
+
+.team.selected{
+  color:#777;
+  text-decoration:line-through;
+  border-color:#d4af37;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  font-size:12px;
+  color:#666;
+  margin-bottom:20px;
+}
 </style>
-
-<header class="site-header logo-left">
-  <img src="logo.png" alt="Logo" class="logo">
-</header>
-<!-- ===== LOGO HEADER END ===== --><!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8">
-  <title>بطولة PES Mobile</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      text-align: center;
-    }
-
-    .container {
-      padding: 20px;
-      animation: fadeIn 1.2s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    h1 {
-      color: #1affd5;
-      text-shadow: 0 0 15px rgba(26, 255, 213, 0.7);
-    }
-
-    .subtitle {
-      margin-bottom: 20px;
-      opacity: 0.9;
-    }
-
-    .card {
-      background: rgba(0, 0, 0, 0.35);
-      border-radius: 20px;
-      padding: 25px;
-      max-width: 420px;
-      margin: auto;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-      backdrop-filter: blur(10px);
-      animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-      100% { transform: translateY(0); }
-    }
-
-    .card p {
-      margin: 10px 0;
-    }
-
-    .countdown {
-      color: #ffd700;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    /* زر 3D */
-    .btn-3d {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 15px 30px;
-      background: linear-gradient(145deg, #1affd5, #0fb9a8);
-      color: #003b3b;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 50px;
-      box-shadow:
-        0 8px 0 #0a7f74,
-        0 15px 25px rgba(0,0,0,0.4);
-      transition: all 0.2s ease;
-    }
-
-    .btn-3d:hover {
-      filter: brightness(1.1);
-    }
-
-    .btn-3d:active {
-      transform: translateY(6px);
-      box-shadow:
-        0 3px 0 #0a7f74,
-        0 8px 15px rgba(0,0,0,0.4);
-    }
-
-    footer {
-      margin-top: 25px;
-      font-size: 13px;
-      opacity: 0.6;
-    }
-  </style>
 </head>
 
 <body>
 
-  <div class="container">
-    <h1>🏆 بطولة PES Mobile 🏆</h1>
-    <p class="subtitle">🔥 فرصتك باش تبين المهارة ديالك وتربح جوائز 🔥</p>
-
-    <div class="card">
-      <p>📅 التاريخ: 25 دجنبر 2025</p>
-      <p>⏰ الوقت: 21:00 مساء</p>
-      <p>🎮 اللعبة: PES Mobile</p>
-      <p>🥇 الجائزة: 💰 درهم</p>
-      <p class="countdown">⏳ باقي 5 أيام 3 ساعات</p>
-
-      <a href="https://wa.me/212600000000" class="btn-3d">
-        🔥 سجّل دابا عبر واتساب 🔥
-      </a>
-    </div>
-
-    <footer>© 2025 بطولة PES Mobile</footer>
+<div class="header">
+  <div class="logo">
+    <img src="logo.png">
   </div>
+  <h1>بطولة PES Mobile</h1>
+</div>
+
+<!-- SECTION 1 -->
+<div class="card">
+  <p>
+    مرحباً بكم في بطولة PES Mobile  
+    تنظيم احترافي – تنافس نزيه  
+  </p>
+
+  <div class="info">
+    <div><span>📅 البداية:</span> 20 / 12 / 2025</div>
+    <div><span>👥 عدد اللاعبين:</span> 32</div>
+    <div><span>🎮 النظام:</span> إقصائيات</div>
+  </div>
+
+  <div class="countdown">
+    <div class="time-box"><span id="days">00</span><small>أيام</small></div>
+    <div class="time-box"><span id="hours">00</span><small>ساعات</small></div>
+    <div class="time-box"><span id="minutes">00</span><small>دقائق</small></div>
+    <div class="time-box"><span id="seconds">00</span><small>ثواني</small></div>
+  </div>
+
+  <div class="price">
+    💰 تمن الإشتراك: <span>5 درهم</span>
+  </div>
+
+  <div class="btn">
+    <a href="#">سجّل الآن</a>
+  </div>
+</div>
+
+<!-- PRIZES -->
+<div class="winners">
+  <h2>🏆 مجموع الجوائز: 100 درهم</h2>
+  <div class="winner-box"><span>🥇 Top 1</span><span>50 درهم</span></div>
+  <div class="winner-box"><span>🥈 Top 2</span><span>30 درهم</span></div>
+  <div class="winner-box"><span>🥉 Top 3</span><span>20 درهم</span></div>
+</div>
+
+<!-- TEAMS -->
+<div class="teams">
+  <h2>⚽ اختر فريقك</h2>
+  <div class="team-grid" id="teams"></div>
+</div>
+
+<div class="footer">
+  © 2025 PES Tournament
+</div>
+
+<script>
+/* Countdown */
+const targetDate = new Date("December 20, 2025 20:00:00").getTime();
+setInterval(() => {
+  const now = new Date().getTime();
+  const d = targetDate - now;
+  if(d < 0) return;
+  days.innerHTML = Math.floor(d / (1000*60*60*24));
+  hours.innerHTML = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  minutes.innerHTML = Math.floor((d%(1000*60*60))/(1000*60));
+  seconds.innerHTML = Math.floor((d%(1000*60))/1000);
+},1000);
+
+/* Teams */
+const teams = [
+"Barcelona","Real Madrid","Man City","Man United","Liverpool","Chelsea",
+"PSG","Bayern","Juventus","Inter","Milan","Arsenal",
+"Tottenham","Napoli","Atletico","Dortmund",
+"Ajax","Porto","Benfica","Roma","Lazio","Sevilla",
+"Leverkusen","Leipzig","Monaco","Marseille",
+"Sporting","Celtic","Rangers","Galatasaray","Fenerbahce","Al Nassr"
+];
+
+const grid = document.getElementById("teams");
+teams.forEach(name=>{
+  const div = document.createElement("div");
+  div.className="team";
+  div.innerText=name;
+  div.onclick=()=>{
+    if(!div.classList.contains("selected")){
+      div.classList.add("selected");
+    }
+  };
+  grid.appendChild(div);
+});
+</script>
 
 </body>
 </html>

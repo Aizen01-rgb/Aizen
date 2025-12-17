@@ -3,202 +3,269 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>World Tournament – Legendary</title>
+<title>PES TOURNAMENT</title>
 
 <style>
-*{box-sizing:border-box;font-family:Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Tajawal',sans-serif}
 body{
-margin:0;
-background:radial-gradient(circle at top,#1b1b1b,#000);
+background:#000;
 color:#fff;
-overflow-x:hidden
+overflow:hidden;
 }
 
-/* HEADER */
-header{
-padding:25px;
-text-align:center;
-background:linear-gradient(180deg,#000,#111);
-box-shadow:0 0 30px rgba(212,175,55,.25)
-}
-header h1{
-color:#d4af37;
-letter-spacing:3px;
-text-shadow:0 0 20px #d4af37;
-margin-bottom:15px
-}
-
-/* NAV */
+/* ====== NAV ====== */
 nav{
 display:flex;
-justify-content:center;
-gap:35px
+justify-content:space-around;
+padding:12px;
+background:linear-gradient(145deg,#000,#111);
+box-shadow:0 5px 20px #d4af3755;
 }
 nav button{
-background:none;
+background:linear-gradient(145deg,#d4af37,#b8962e);
 border:none;
-color:#d4af37;
-font-size:16px;
+padding:10px 20px;
+border-radius:25px;
+color:#000;
 font-weight:bold;
 cursor:pointer;
-position:relative
+transform:translateZ(0);
+transition:.3s;
 }
-nav button::after{
-content:'';
+nav button:hover{
+transform:scale(1.1);
+box-shadow:0 0 15px #d4af37;
+}
+
+/* ====== PAGES ====== */
+.page{
 position:absolute;
-bottom:-6px;
+top:60px;
 left:0;
-width:0;
-height:2px;
-background:#d4af37;
-transition:.3s
-}
-nav button:hover::after{width:100%}
-
-/* SECTIONS */
-section{
+width:100%;
+height:calc(100vh - 60px);
+padding:20px;
 display:none;
-padding:60px 20px;
+animation:fade3d .6s ease;
+overflow-y:auto;
+}
+.page.active{display:block}
+
+@keyframes fade3d{
+from{opacity:0;transform:rotateY(20deg) scale(.9)}
+to{opacity:1;transform:none}
+}
+
+/* ====== HERO ====== */
+.hero{
 text-align:center;
-animation:fadeUp .8s ease
+margin-top:20px;
 }
-section.active{display:block}
-
-/* HERO */
-.hero h2{
-font-size:28px;
-margin-bottom:15px
+.hero h1{
+color:#d4af37;
+font-size:32px;
+text-shadow:0 0 15px #d4af37;
 }
-.hero span{color:#d4af37}
+.box{
+background:linear-gradient(145deg,#111,#000);
+padding:15px;
+margin:15px 0;
+border-radius:15px;
+box-shadow:0 0 20px #d4af3733;
+}
 
-/* BUTTON 3D */
-.btn{
-margin-top:35px;
+/* ====== BUTTON 3D ====== */
+.btn3d{
 display:inline-block;
-background:linear-gradient(145deg,#ffd700,#b8962e);
+margin-top:20px;
+padding:15px 35px;
+background:linear-gradient(145deg,#d4af37,#b8962e);
 color:#000;
-padding:18px 50px;
-border-radius:18px;
-font-weight:bold;
+border-radius:40px;
 font-size:18px;
-box-shadow:0 14px 0 #7a611c;
-transition:.15s
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 8px 0 #7a6420,0 15px 25px #000;
+transition:.2s;
 }
-.btn:active{
+.btn3d:active{
 transform:translateY(8px);
-box-shadow:0 6px 0 #7a611c
+box-shadow:0 2px 0 #7a6420;
 }
 
-/* BRACKET */
+/* ====== TEAMS ====== */
+.teams{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:15px;
+}
+.team{
+background:#111;
+padding:12px;
+border-radius:12px;
+text-align:center;
+cursor:pointer;
+border:1px solid #d4af3755;
+transition:.3s;
+}
+.team:hover{
+background:#d4af37;
+color:#000;
+transform:scale(1.05);
+}
+
+/* ====== BRACKET ====== */
 .bracket{
 display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:20px;
-max-width:1100px;
-margin:auto
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+.round{
+background:#111;
+padding:10px;
+border-radius:12px;
+}
+.round h3{
+color:#d4af37;
+text-align:center;
+margin-bottom:10px;
 }
 .match{
-background:#0f0f0f;
-border:1px solid #d4af37;
-border-radius:14px;
-padding:14px;
-box-shadow:0 0 20px rgba(212,175,55,.25)
-}
-.match p{margin:6px 0;font-weight:bold}
-
-/* RULES */
-.rules{
-max-width:700px;
-margin:auto;
-background:#0e0e0e;
-border:1px solid #d4af37;
-border-radius:18px;
-padding:25px;
-box-shadow:0 0 25px rgba(212,175,55,.2)
-}
-.rules li{
-margin:12px 0;
-text-align:right
-}
-
-/* FOOTER */
-footer{
-padding:20px;
 background:#000;
-color:#aaa;
-font-size:13px
+padding:6px;
+margin:4px 0;
+border-radius:8px;
+text-align:center;
+font-size:14px;
 }
 
-/* ANIM */
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(40px)}
-to{opacity:1;transform:translateY(0)}
-}
-
-@media(max-width:900px){
-.bracket{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:500px){
-.bracket{grid-template-columns:1fr}
+/* ====== COUNTDOWN ====== */
+#countdown{
+font-size:20px;
+color:#d4af37;
+margin-top:10px;
+text-shadow:0 0 10px #d4af37;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>WORLD TOURNAMENT</h1>
 <nav>
-<button onclick="showPage('home')">HOME</button>
-<button onclick="showPage('tournament')">TOURNAMENT</button>
-<button onclick="showPage('rules')">RULES</button>
+<button onclick="showPage('home')">🏆 الإعلان</button>
+<button onclick="showPage('bracket')">⚔️ البطولة</button>
+<button onclick="showPage('rules')">📜 القوانين</button>
 </nav>
-</header>
 
-<!-- HOME -->
-<section id="home" class="active hero">
-<h2>بطولة <span>عالمية</span> بنظام الإقصائيات</h2>
-<p>استعد لأقوى المنافسات – فقط الأقوى يوصل للنهائي 🏆</p>
-<a class="btn" href="#">سجّل الآن</a>
-</section>
+<!-- ===== PAGE 1 ===== -->
+<div id="home" class="page active">
+<div class="hero">
+<h1>🔥 بطولة PES Mobile 🔥</h1>
 
-<!-- TOURNAMENT -->
-<section id="tournament">
-<h2 style="color:#d4af37">🏆 الإقصائيات</h2>
-<div class="bracket">
-<div class="match"><p>Team 1</p><p>VS</p><p>Team 2</p></div>
-<div class="match"><p>Team 3</p><p>VS</p><p>Team 4</p></div>
-<div class="match"><p>Team 5</p><p>VS</p><p>Team 6</p></div>
-<div class="match"><p>Team 7</p><p>VS</p><p>Team 8</p></div>
-
-<div class="match"><p>Winner</p><p>VS</p><p>Winner</p></div>
-<div class="match"><p>Winner</p><p>VS</p><p>Winner</p></div>
-
-<div class="match"><p>🏆 FINAL 🏆</p></div>
+<div class="box">
+<p>👥 عدد المشاركين: <b>32 لاعب</b></p>
+<p>🥇🥈🥉 التوب 3</p>
+<p>💰 الجوائز: <b>100 DH</b></p>
+<div id="countdown"></div>
 </div>
-</section>
 
-<!-- RULES -->
-<section id="rules">
-<h2 style="color:#d4af37">📜 القوانين</h2>
-<ul class="rules">
-<li>✔️ عدد المشاركين: 32 لاعب</li>
-<li>✔️ نظام البطولة: إقصائيات مباشرة</li>
-<li>✔️ ثمن التسجيل: 5 درهم</li>
-<li>✔️ الجوائز: 100 درهم موزعة على Top 3</li>
-<li>✔️ أي تأخير أكثر من 5 دقائق = إقصاء</li>
-<li>✔️ التواصل عبر WhatsApp</li>
-</ul>
-</section>
+<div class="btn3d" onclick="toggleTeams()">🚀 سجل الآن</div>
 
-<footer>
-© 2025 World Tournament – Legendary Edition
-</footer>
+<div id="teamsBox" style="display:none">
+<h3 style="margin-top:20px;color:#d4af37">اختر الفريق</h3>
+<div class="teams" id="teams"></div>
+</div>
+</div>
+</div>
+
+<!-- ===== PAGE 2 ===== -->
+<div id="bracket" class="page">
+<h2 style="color:#d4af37;text-align:center">⚔️ الإقصائيات</h2>
+
+<div class="bracket">
+<div class="round">
+<h3>32 لاعب</h3>
+<div class="match">A vs B</div>
+<div class="match">C vs D</div>
+<div class="match">...</div>
+</div>
+
+<div class="round">
+<h3>16 لاعب</h3>
+<div class="match">Winner 1</div>
+<div class="match">Winner 2</div>
+</div>
+
+<div class="round">
+<h3>نصف النهائي</h3>
+<div class="match">SF 1</div>
+<div class="match">SF 2</div>
+</div>
+
+<div class="round">
+<h3>🏆 النهائي</h3>
+<div class="match">FINAL</div>
+</div>
+</div>
+</div>
+
+<!-- ===== PAGE 3 ===== -->
+<div id="rules" class="page">
+<h2 style="color:#d4af37;text-align:center">📜 قوانين البطولة</h2>
+<div class="box">
+<p>✔️ اللعب النظيف إجباري</p>
+<p>✔️ أي تأخر أكثر من 5 دقائق = إقصاء</p>
+<p>✔️ يمنع تغيير الفريق</p>
+<p>✔️ قرارات المنظم نهائية</p>
+<p>✔️ التواصل يتم عبر واتساب فقط</p>
+</div>
+</div>
 
 <script>
 function showPage(id){
-document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById(id).classList.add('active');
+}
+
+/* ===== COUNTDOWN ===== */
+let end = new Date().getTime() + 86400000;
+setInterval(()=>{
+let now = new Date().getTime();
+let d = end-now;
+let h = Math.floor(d/(1000*60*60));
+let m = Math.floor((d%(1000*60*60))/(1000*60));
+let s = Math.floor((d%(1000*60))/1000);
+document.getElementById("countdown").innerHTML =
+"⏳ يبدأ بعد: "+h+"h "+m+"m "+s+"s";
+},1000);
+
+/* ===== TEAMS ===== */
+const teams=[
+"FC Barcelona","Real Madrid","Man City","PSG","Bayern",
+"Liverpool","Arsenal","Chelsea","Juventus","Milan",
+"Inter","Napoli","Atletico","Dortmund","Leipzig",
+"Porto","Benfica","Ajax","Roma","Lazio",
+"Tottenham","United","Newcastle","Al Hilal",
+"Al Nassr","Morocco","France","Brazil",
+"Argentina","Portugal","Spain","Germany"
+];
+
+const box=document.getElementById("teams");
+teams.forEach(t=>{
+let div=document.createElement("div");
+div.className="team";
+div.innerText=t;
+div.onclick=()=>{
+window.open(
+"https://wa.me/212600000000?text=سلام بغيت نشارك فبطولة PES بالفريق: "+t
+,"_blank");
+};
+box.appendChild(div);
+});
+
+function toggleTeams(){
+document.getElementById("teamsBox").style.display="block";
 }
 </script>
 

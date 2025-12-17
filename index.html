@@ -3,99 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بطولة PES Mobile</title>
+<title>🏆 بطولة كرة القدم</title>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <style>
 body{
   margin:0;
-  font-family:'Cairo', Arial;
+  font-family:Cairo,Arial;
   background:radial-gradient(circle at top,#1a1a1a,#000);
   color:#fff;
   text-align:center;
 }
-.container{
-  max-width:500px;
-  margin:auto;
-  padding:20px;
+.container{max-width:520px;margin:auto;padding:20px}
+h1{color:#d4af37;text-shadow:0 0 15px #d4af37}
+
+/* LOGO */
+.logo{
+  width:120px;
+  margin:10px auto;
+  filter:drop-shadow(0 0 15px gold);
 }
-h1{
-  color:#d4af37;
-  text-shadow:0 0 10px #d4af37;
+
+/* TROPHY */
+.trophy{
+  width:90px;
+  margin:15px auto;
+  animation:float 2.5s ease-in-out infinite;
+  filter:drop-shadow(0 0 20px #d4af37);
 }
-.counter{
-  font-size:20px;
-  margin:10px 0;
-  color:#fff;
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+  100%{transform:translateY(0)}
 }
-.top3{
-  display:flex;
-  justify-content:space-between;
-  margin:15px 0;
-}
-.top3 div{
-  flex:1;
-  margin:5px;
-  padding:10px;
+
+.card{
   background:#111;
   border:1px solid #d4af37;
-  border-radius:12px;
-  box-shadow:0 5px 15px #000;
+  border-radius:16px;
+  padding:15px;
+  margin:10px 0;
+  box-shadow:0 10px 25px #000;
 }
+.counter{font-size:22px;margin:10px 0}
+.top3{display:flex;gap:8px}
+.top3 div{
+  flex:1;
+  background:#000;
+  border:1px solid #d4af37;
+  border-radius:12px;
+  padding:10px;
+}
+
+/* TEAMS */
+#teams{display:none;margin-top:15px}
 .team{
+  padding:14px;
+  margin:8px 0;
+  border-radius:14px;
   background:linear-gradient(145deg,#111,#000);
   border:2px solid #d4af37;
-  border-radius:15px;
-  padding:15px;
-  margin:12px 0;
+  box-shadow:0 8px #8c6d1f;
   cursor:pointer;
-  box-shadow:0 8px 0 #8c6d1f;
-  transition:.3s;
+  transition:.2s;
 }
-.team:hover{
-  transform:translateY(-3px);
+.team:active{transform:translateY(5px);box-shadow:0 3px #8c6d1f}
+.team.taken{opacity:.35;pointer-events:none}
+.team.selected{background:#d4af37;color:#000;font-weight:bold}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:16px;
+  font-size:20px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(145deg,#d4af37,#b8962e);
+  box-shadow:0 8px #8c6d1f;
+  font-weight:bold;
 }
-.team:active{
-  box-shadow:0 3px 0 #8c6d1f;
-  transform:translateY(4px);
-}
-.taken{
-  opacity:.35;
-  pointer-events:none;
-}
-audio{
-  display:none;
-}
+button:active{transform:translateY(5px);box-shadow:0 3px #8c6d1f}
 </style>
 </head>
 
 <body>
-
-<audio autoplay loop>
-  <source src="bg.mp3" type="audio/mpeg">
-</audio>
-
 <div class="container">
-  <h1>🏆 بطولة PES Mobile</h1>
 
-  <div class="counter" id="counter">0 / 32 مسجل</div>
+  <img src="logo.png" class="logo">
+  <img src="trophy.png" class="trophy">
 
-  <h3>🥇 Top 3</h3>
-  <div class="top3">
-    <div id="t1">---</div>
-    <div id="t2">---</div>
-    <div id="t3">---</div>
+  <h1>بطولة كرة القدم</h1>
+
+  <div class="card">
+    💰 ثمن الاشتراك: <b>5 دراهم</b><br>
+    🏅 الجوائز: <b>100 درهم</b> (Top 3)
   </div>
 
-  <h3>اختيار الفرق</h3>
+  <div class="counter" id="counter">0 / 32</div>
+
+  <div class="card">
+    <h3>🥇 Top 3</h3>
+    <div class="top3">
+      <div id="t1">---</div>
+      <div id="t2">---</div>
+      <div id="t3">---</div>
+    </div>
+  </div>
+
+  <button id="showBtn">🚀 سجّل الآن</button>
+
   <div id="teams"></div>
 </div>
 
 <script>
-// 🔥 firebaseConfig ديالك
 const firebaseConfig = {
   apiKey: "XXXX",
   authDomain: "XXXX",
@@ -107,68 +129,69 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const teamsRef = db.ref("teams");
-const countRef = db.ref("count");
-const topRef = db.ref("top3");
+const db=firebase.database();
+const teamsRef=db.ref("teams");
+const countRef=db.ref("count");
+const topRef=db.ref("top3");
 
-// عرض الفرق
-teamsRef.on("value", snap=>{
-  const teams = snap.val();
-  const box = document.getElementById("teams");
-  box.innerHTML = "";
-  for(let k in teams){
-    const t = teams[k];
-    const d = document.createElement("div");
-    d.className = "team"+(t.taken?" taken":"");
-    d.innerHTML = t.name;
+let selectedKey=null, selectedName=null;
+
+document.getElementById("showBtn").onclick=()=>{
+  document.getElementById("teams").style.display="block";
+};
+
+teamsRef.on("value",s=>{
+  const box=document.getElementById("teams");
+  box.innerHTML="";
+  const data=s.val();
+  for(let k in data){
+    const t=data[k];
+    const d=document.createElement("div");
+    d.className="team"+(t.taken?" taken":"");
+    d.innerText=t.name;
     if(!t.taken){
-      d.onclick = ()=> chooseTeam(k,t.name);
+      d.onclick=()=>{
+        document.querySelectorAll(".team").forEach(e=>e.classList.remove("selected"));
+        d.classList.add("selected");
+        selectedKey=k;
+        selectedName=t.name;
+        confirmRegister();
+      };
     }
     box.appendChild(d);
   }
 });
 
-// العداد
-countRef.on("value", s=>{
-  document.getElementById("counter").innerText =
-    (s.val()||0)+" / 32 مسجل";
-});
-
-// Top 3
-topRef.on("value", s=>{
-  const d = s.val()||{};
-  document.getElementById("t1").innerText = d.one||"---";
-  document.getElementById("t2").innerText = d.two||"---";
-  document.getElementById("t3").innerText = d.three||"---";
-});
-
-function chooseTeam(key,name){
-  if(!confirm("تأكيد اختيار "+name)) return;
-
-  teamsRef.child(key).transaction(t=>{
-    if(t && !t.taken){
-      t.taken = true;
-      return t;
-    }
+function confirmRegister(){
+  if(!confirm("تأكيد التسجيل بفرقة "+selectedName))return;
+  teamsRef.child(selectedKey).transaction(t=>{
+    if(t && !t.taken){t.taken=true;return t;}
     return;
   },(e,ok)=>{
     if(ok){
       countRef.transaction(c=>(c||0)+1);
       topRef.transaction(t=>{
         t=t||{};
-        if(!t.one) t.one=name;
-        else if(!t.two) t.two=name;
-        else if(!t.three) t.three=name;
+        if(!t.one)t.one=selectedName;
+        else if(!t.two)t.two=selectedName;
+        else if(!t.three)t.three=selectedName;
         return t;
       });
-      location.href =
-      "https://wa.me/212779225334?text="+
-      encodeURIComponent("سلام، سجلت بفرقة "+name);
+      location.href="https://wa.me/212600000000?text="+
+      encodeURIComponent("سلام، تسجلت فالبطولة بفرقة "+selectedName);
     }else alert("الفرقة تخدات");
   });
 }
-</script>
 
+countRef.on("value",s=>{
+  document.getElementById("counter").innerText=(s.val()||0)+" / 32";
+});
+topRef.on("value",s=>{
+  const t=s.val()||{};
+  t1.innerText=t.one||"---";
+  t2.innerText=t.two||"---";
+  t3.innerText=t.three||"---";
+});
+</script>
 </body>
 </html>

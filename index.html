@@ -3,195 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏆 بطولة كرة القدم</title>
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<title>PES TOURNAMENT</title>
 
 <style>
-body{
+*{
   margin:0;
-  font-family:Cairo,Arial;
-  background:radial-gradient(circle at top,#1a1a1a,#000);
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Arial',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#000,#1a0000);
   color:#fff;
-  text-align:center;
-}
-.container{max-width:520px;margin:auto;padding:20px}
-h1{color:#d4af37;text-shadow:0 0 15px #d4af37}
-
-/* LOGO */
-.logo{
-  width:120px;
-  margin:10px auto;
-  filter:drop-shadow(0 0 15px gold);
+  overflow-x:hidden;
 }
 
-/* TROPHY */
-.trophy{
-  width:90px;
-  margin:15px auto;
-  animation:float 2.5s ease-in-out infinite;
-  filter:drop-shadow(0 0 20px #d4af37);
-}
-@keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-12px)}
-  100%{transform:translateY(0)}
-}
-
-.card{
-  background:#111;
-  border:1px solid #d4af37;
-  border-radius:16px;
-  padding:15px;
-  margin:10px 0;
-  box-shadow:0 10px 25px #000;
-}
-.counter{font-size:22px;margin:10px 0}
-.top3{display:flex;gap:8px}
-.top3 div{
-  flex:1;
+/* ---------- NAV ---------- */
+nav{
+  display:flex;
+  justify-content:space-around;
+  padding:12px;
   background:#000;
-  border:1px solid #d4af37;
-  border-radius:12px;
-  padding:10px;
+  border-bottom:2px solid gold;
 }
 
-/* TEAMS */
-#teams{display:none;margin-top:15px}
-.team{
-  padding:14px;
-  margin:8px 0;
-  border-radius:14px;
-  background:linear-gradient(145deg,#111,#000);
-  border:2px solid #d4af37;
-  box-shadow:0 8px #8c6d1f;
-  cursor:pointer;
-  transition:.2s;
-}
-.team:active{transform:translateY(5px);box-shadow:0 3px #8c6d1f}
-.team.taken{opacity:.35;pointer-events:none}
-.team.selected{background:#d4af37;color:#000;font-weight:bold}
-
-/* BUTTON */
-button{
-  width:100%;
-  padding:16px;
-  font-size:20px;
+nav button{
+  background:none;
   border:none;
-  border-radius:18px;
-  background:linear-gradient(145deg,#d4af37,#b8962e);
-  box-shadow:0 8px #8c6d1f;
+  color:gold;
+  font-size:14px;
+  cursor:pointer;
   font-weight:bold;
 }
-button:active{transform:translateY(5px);box-shadow:0 3px #8c6d1f}
+
+nav button.active{
+  color:red;
+}
+
+/* ---------- PAGES ---------- */
+.page{
+  display:none;
+  padding:20px;
+  animation:fade .5s;
+}
+
+.page.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ---------- CARDS ---------- */
+.card{
+  background:#111;
+  border:1px solid gold;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:15px;
+  box-shadow:0 0 15px rgba(255,215,0,.2);
+}
+
+/* ---------- TITLES ---------- */
+h2{
+  color:gold;
+  margin-bottom:10px;
+  text-align:center;
+}
+
+/* ---------- BUTTON ---------- */
+.btn{
+  display:block;
+  margin:15px auto;
+  padding:12px;
+  width:80%;
+  background:linear-gradient(145deg,gold,red);
+  color:#000;
+  border:none;
+  border-radius:30px;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 5px 0 #600;
+}
+
+/* ---------- TEAMS ---------- */
+.teams{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.team{
+  background:#000;
+  border:1px solid gold;
+  padding:10px;
+  text-align:center;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.team.disabled{
+  opacity:.3;
+  pointer-events:none;
+}
+
+/* ---------- COUNTER ---------- */
+.counter{
+  text-align:center;
+  font-size:18px;
+  margin-top:10px;
+  color:gold;
+}
+
+/* ---------- TABLE ---------- */
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  border:1px solid gold;
+  padding:8px;
+  text-align:center;
+}
+
+th{
+  background:#000;
+  color:gold;
+}
 </style>
 </head>
 
 <body>
-<div class="container">
 
-  <img src="logo.png" class="logo">
-  <img src="trophy.png" class="trophy">
+<nav>
+  <button onclick="showPage('home')" class="active">الرئيسية</button>
+  <button onclick="showPage('results')">النتائج</button>
+  <button onclick="showPage('info')">معلومات</button>
+</nav>
 
-  <h1>بطولة كرة القدم</h1>
+<!-- ================= PAGE 1 ================= -->
+<div id="home" class="page active">
 
   <div class="card">
-    💰 ثمن الاشتراك: <b>5 دراهم</b><br>
-    🏅 الجوائز: <b>100 درهم</b> (Top 3)
+    <h2>🏆 TOP 3</h2>
+    🥇 المركز الأول – 50dh<br>
+    🥈 المركز الثاني – 30dh<br>
+    🥉 المركز الثالث – 20dh
   </div>
 
-  <div class="counter" id="counter">0 / 32</div>
+  <div class="card">
+    <h2>📅 بداية البطولة</h2>
+    25 / 12 / 2025
+  </div>
 
   <div class="card">
-    <h3>🥇 Top 3</h3>
-    <div class="top3">
-      <div id="t1">---</div>
-      <div id="t2">---</div>
-      <div id="t3">---</div>
+    <h2>👥 المشاركون</h2>
+    <div class="counter" id="counter">0 / 32</div>
+    <button class="btn" onclick="openTeams()">سجل دابا</button>
+  </div>
+
+  <div id="teamsBox" style="display:none">
+    <div class="card">
+      <h2>⚽ اختر الفرقة</h2>
+      <div class="teams" id="teams"></div>
     </div>
   </div>
 
-  <button id="showBtn">🚀 سجّل الآن</button>
+</div>
 
-  <div id="teams"></div>
+<!-- ================= PAGE 2 ================= -->
+<div id="results" class="page">
+
+  <div class="card">
+    <h2>📊 جدول النقاط</h2>
+    <table>
+      <tr><th>اللاعب</th><th>النقاط</th></tr>
+      <tr><td>---</td><td>0</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>🏟️ مراحل البطولة</h2>
+    الإقصائيات ✔️<br>
+    ربع النهائي ✔️<br>
+    نصف النهائي ✔️<br>
+    النهائي 🏆
+  </div>
+
+</div>
+
+<!-- ================= PAGE 3 ================= -->
+<div id="info" class="page">
+
+  <div class="card">
+    <h2>📜 قوانين البطولة</h2>
+    ⏱️ مدة المباراة: 10 دقائق<br>
+    🎮 PES Mobile<br>
+    ❌ ممنوع الخروج<br>
+    ⚠️ الانسحاب = إقصاء
+  </div>
+
+  <div class="card">
+    <h2>📢 تواصل</h2>
+    <a href="https://wa.me/212600000000" style="color:gold">واتساب البطولة</a>
+  </div>
+
 </div>
 
 <script>
-const firebaseConfig = {
-  apiKey: "XXXX",
-  authDomain: "XXXX",
-  databaseURL: "XXXX",
-  projectId: "XXXX",
-  storageBucket: "XXXX",
-  messagingSenderId: "XXXX",
-  appId: "XXXX"
-};
+const pages=document.querySelectorAll('.page');
+const buttons=document.querySelectorAll('nav button');
 
-firebase.initializeApp(firebaseConfig);
-const db=firebase.database();
-const teamsRef=db.ref("teams");
-const countRef=db.ref("count");
-const topRef=db.ref("top3");
-
-let selectedKey=null, selectedName=null;
-
-document.getElementById("showBtn").onclick=()=>{
-  document.getElementById("teams").style.display="block";
-};
-
-teamsRef.on("value",s=>{
-  const box=document.getElementById("teams");
-  box.innerHTML="";
-  const data=s.val();
-  for(let k in data){
-    const t=data[k];
-    const d=document.createElement("div");
-    d.className="team"+(t.taken?" taken":"");
-    d.innerText=t.name;
-    if(!t.taken){
-      d.onclick=()=>{
-        document.querySelectorAll(".team").forEach(e=>e.classList.remove("selected"));
-        d.classList.add("selected");
-        selectedKey=k;
-        selectedName=t.name;
-        confirmRegister();
-      };
-    }
-    box.appendChild(d);
-  }
-});
-
-function confirmRegister(){
-  if(!confirm("تأكيد التسجيل بفرقة "+selectedName))return;
-  teamsRef.child(selectedKey).transaction(t=>{
-    if(t && !t.taken){t.taken=true;return t;}
-    return;
-  },(e,ok)=>{
-    if(ok){
-      countRef.transaction(c=>(c||0)+1);
-      topRef.transaction(t=>{
-        t=t||{};
-        if(!t.one)t.one=selectedName;
-        else if(!t.two)t.two=selectedName;
-        else if(!t.three)t.three=selectedName;
-        return t;
-      });
-      location.href="https://wa.me/212600000000?text="+
-      encodeURIComponent("سلام، تسجلت فالبطولة بفرقة "+selectedName);
-    }else alert("الفرقة تخدات");
-  });
+function showPage(id){
+  pages.forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  buttons.forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
 }
 
-countRef.on("value",s=>{
-  document.getElementById("counter").innerText=(s.val()||0)+" / 32";
-});
-topRef.on("value",s=>{
-  const t=s.val()||{};
-  t1.innerText=t.one||"---";
-  t2.innerText=t.two||"---";
-  t3.innerText=t.three||"---";
-});
+/* ---------- TEAMS ---------- */
+const teamsList=[
+"Real Madrid","Barcelona","PSG","Manchester City","Bayern",
+"Arsenal","Liverpool","Chelsea","AC Milan","Inter",
+"Juventus","Napoli","Atletico","Dortmund","Ajax",
+"Porto","Benfica","Al Nassr","Al Hilal","Al Ahly",
+"Morocco","Brazil","France","Argentina","Spain",
+"Germany","England","Italy","Portugal","Netherlands",
+"Belgium","Croatia"
+];
+
+let selectedTeams=JSON.parse(localStorage.getItem("teams"))||[];
+
+const teamsDiv=document.getElementById("teams");
+
+function renderTeams(){
+  teamsDiv.innerHTML="";
+  teamsList.forEach(t=>{
+    const div=document.createElement("div");
+    div.className="team";
+    div.innerText=t;
+    if(selectedTeams.includes(t))div.classList.add("disabled");
+    div.onclick=()=>{
+      if(selectedTeams.length<32){
+        selectedTeams.push(t);
+        localStorage.setItem("teams",JSON.stringify(selectedTeams));
+        updateCounter();
+        renderTeams();
+        window.location.href=`https://wa.me/212600000000?text=سلام بغيت نسجل ف بطولة PES بالفرقة ${t}`;
+      }
+    }
+    teamsDiv.appendChild(div);
+  })
+}
+
+function updateCounter(){
+  document.getElementById("counter").innerText=
+  selectedTeams.length+" / 32";
+}
+
+function openTeams(){
+  document.getElementById("teamsBox").style.display="block";
+  renderTeams();
+}
+
+updateCounter();
 </script>
+
 </body>
 </html>

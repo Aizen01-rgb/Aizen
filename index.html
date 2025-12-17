@@ -3,137 +3,153 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PES TOURNAMENT</title>
+<title>PES TOURNAMENT 3D PRO</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Arial',sans-serif;
+:root{
+  --gold:#FFD700;
+  --red:#c40000;
+  --dark:#000;
 }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 
 body{
-  background:linear-gradient(135deg,#000,#1a0000);
+  background:radial-gradient(circle at top,#200,#000);
   color:#fff;
-  overflow-x:hidden;
+  perspective:1200px;
 }
 
-/* ---------- NAV ---------- */
+/* NAV */
 nav{
   display:flex;
   justify-content:space-around;
   padding:12px;
   background:#000;
-  border-bottom:2px solid gold;
+  border-bottom:2px solid var(--gold);
+  position:sticky;
+  top:0;
+  z-index:10;
 }
-
 nav button{
   background:none;
   border:none;
-  color:gold;
-  font-size:14px;
-  cursor:pointer;
+  color:var(--gold);
   font-weight:bold;
+  font-size:15px;
 }
-
 nav button.active{
-  color:red;
+  color:var(--red);
+  transform:translateZ(20px);
 }
 
-/* ---------- PAGES ---------- */
+/* PAGES */
 .page{
   display:none;
   padding:20px;
-  animation:fade .5s;
+  animation:slide .6s ease;
+  transform-style:preserve-3d;
+}
+.page.active{display:block}
+@keyframes slide{
+  from{opacity:0;transform:translateX(40px) rotateY(10deg)}
+  to{opacity:1;transform:none}
 }
 
-.page.active{
-  display:block;
-}
-
-@keyframes fade{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* ---------- CARDS ---------- */
+/* CARDS 3D */
 .card{
-  background:#111;
-  border:1px solid gold;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:15px;
-  box-shadow:0 0 15px rgba(255,215,0,.2);
+  background:linear-gradient(145deg,#111,#000);
+  border:1px solid var(--gold);
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:18px;
+  box-shadow:0 15px 30px rgba(255,215,0,.25);
+  transform-style:preserve-3d;
+  transition:.4s;
+}
+.card:hover{
+  transform:translateY(-6px) rotateX(4deg);
 }
 
-/* ---------- TITLES ---------- */
+/* TITLES */
 h2{
-  color:gold;
-  margin-bottom:10px;
   text-align:center;
+  color:var(--gold);
+  margin-bottom:10px;
 }
 
-/* ---------- BUTTON ---------- */
+/* BUTTON 3D */
 .btn{
-  display:block;
+  width:85%;
   margin:15px auto;
-  padding:12px;
-  width:80%;
-  background:linear-gradient(145deg,gold,red);
-  color:#000;
+  padding:14px;
   border:none;
-  border-radius:30px;
-  font-weight:bold;
+  border-radius:40px;
   font-size:16px;
-  cursor:pointer;
-  box-shadow:0 5px 0 #600;
+  font-weight:bold;
+  background:linear-gradient(145deg,var(--gold),var(--red));
+  box-shadow:0 8px 0 #600;
+  transform:translateZ(20px);
+}
+.btn:active{
+  box-shadow:0 2px 0 #600;
+  transform:translateY(6px);
 }
 
-/* ---------- TEAMS ---------- */
+/* CUP */
+.cup{
+  font-size:70px;
+  text-align:center;
+  animation:spin 3s linear infinite;
+}
+@keyframes spin{
+  from{transform:rotateY(0)}
+  to{transform:rotateY(360deg)}
+}
+
+/* COUNTER */
+.counter{
+  text-align:center;
+  font-size:18px;
+  color:var(--gold);
+}
+
+/* TEAMS */
 .teams{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:10px;
 }
-
 .team{
+  padding:12px;
   background:#000;
-  border:1px solid gold;
-  padding:10px;
+  border:1px solid var(--gold);
+  border-radius:12px;
   text-align:center;
-  border-radius:10px;
-  cursor:pointer;
+  transition:.3s;
 }
-
+.team:hover{
+  background:var(--red);
+  transform:translateZ(15px);
+}
 .team.disabled{
   opacity:.3;
   pointer-events:none;
 }
 
-/* ---------- COUNTER ---------- */
-.counter{
-  text-align:center;
-  font-size:18px;
-  margin-top:10px;
-  color:gold;
-}
-
-/* ---------- TABLE ---------- */
+/* TABLE */
 table{
   width:100%;
   border-collapse:collapse;
+  margin-top:10px;
 }
-
 th,td{
-  border:1px solid gold;
+  border:1px solid var(--gold);
   padding:8px;
   text-align:center;
 }
-
 th{
   background:#000;
-  color:gold;
+  color:var(--gold);
 }
 </style>
 </head>
@@ -141,136 +157,149 @@ th{
 <body>
 
 <nav>
-  <button onclick="showPage('home')" class="active">الرئيسية</button>
-  <button onclick="showPage('results')">النتائج</button>
-  <button onclick="showPage('info')">معلومات</button>
+<button onclick="show('home')" class="active">🏠</button>
+<button onclick="show('results')">📊</button>
+<button onclick="show('info')">ℹ️</button>
 </nav>
 
-<!-- ================= PAGE 1 ================= -->
+<!-- ================= HOME ================= -->
 <div id="home" class="page active">
 
-  <div class="card">
-    <h2>🏆 TOP 3</h2>
-    🥇 المركز الأول – 50dh<br>
-    🥈 المركز الثاني – 30dh<br>
-    🥉 المركز الثالث – 20dh
-  </div>
+<div class="cup">🏆</div>
 
-  <div class="card">
-    <h2>📅 بداية البطولة</h2>
-    25 / 12 / 2025
-  </div>
+<div class="card">
+<h2>🥇 TOP 3</h2>
+🥇 50dh<br>
+🥈 30dh<br>
+🥉 20dh
+</div>
 
-  <div class="card">
-    <h2>👥 المشاركون</h2>
-    <div class="counter" id="counter">0 / 32</div>
-    <button class="btn" onclick="openTeams()">سجل دابا</button>
-  </div>
+<div class="card">
+<h2>⏳ بداية البطولة</h2>
+<div id="countdown" class="counter"></div>
+</div>
 
-  <div id="teamsBox" style="display:none">
-    <div class="card">
-      <h2>⚽ اختر الفرقة</h2>
-      <div class="teams" id="teams"></div>
-    </div>
-  </div>
+<div class="card">
+<h2>👥 المشاركون</h2>
+<div id="counter" class="counter">0 / 32</div>
+<button class="btn" onclick="openTeams()">سجّل دابا</button>
+</div>
+
+<div id="teamsBox" style="display:none">
+<div class="card">
+<h2>⚽ اختر الفرقة</h2>
+<div class="teams" id="teams"></div>
+</div>
+</div>
 
 </div>
 
-<!-- ================= PAGE 2 ================= -->
+<!-- ================= RESULTS ================= -->
 <div id="results" class="page">
 
-  <div class="card">
-    <h2>📊 جدول النقاط</h2>
-    <table>
-      <tr><th>اللاعب</th><th>النقاط</th></tr>
-      <tr><td>---</td><td>0</td></tr>
-    </table>
-  </div>
+<div class="card">
+<h2>📊 جدول النقاط – 32 فريق</h2>
+<table>
+<tr><th>#</th><th>الفريق</th><th>النقاط</th></tr>
+<script>
+for(let i=1;i<=32;i++){
+ document.write(`<tr><td>${i}</td><td>Team ${i}</td><td>0</td></tr>`);
+}
+</script>
+</table>
+</div>
 
-  <div class="card">
-    <h2>🏟️ مراحل البطولة</h2>
-    الإقصائيات ✔️<br>
-    ربع النهائي ✔️<br>
-    نصف النهائي ✔️<br>
-    النهائي 🏆
-  </div>
+<div class="card">
+<h2>🏟️ مراحل البطولة</h2>
+🔰 الإقصائيات: <b>32 ⟶ 16</b><br><br>
+🔶 ربع النهائي: <b>16 ⟶ 8</b><br><br>
+🔷 نصف النهائي: <b>8 ⟶ 4</b><br><br>
+🏆 النهائي: <b>4 ⟶ 2 ⟶ البطل</b>
+</div>
 
 </div>
 
-<!-- ================= PAGE 3 ================= -->
+<!-- ================= INFO ================= -->
 <div id="info" class="page">
 
-  <div class="card">
-    <h2>📜 قوانين البطولة</h2>
-    ⏱️ مدة المباراة: 10 دقائق<br>
-    🎮 PES Mobile<br>
-    ❌ ممنوع الخروج<br>
-    ⚠️ الانسحاب = إقصاء
-  </div>
+<div class="card">
+<h2>📜 القوانين</h2>
+⏱️ 10 دقائق<br>
+❌ الانسحاب ممنوع<br>
+⚠️ التأخر = خسارة
+</div>
 
-  <div class="card">
-    <h2>📢 تواصل</h2>
-    <a href="https://wa.me/212600000000" style="color:gold">واتساب البطولة</a>
-  </div>
+<div class="card">
+<h2>📢 التواصل</h2>
+<a href="https://wa.me/212600000000" style="color:var(--gold)">
+واتساب البطولة
+</a>
+</div>
 
 </div>
 
 <script>
 const pages=document.querySelectorAll('.page');
-const buttons=document.querySelectorAll('nav button');
+const navBtns=document.querySelectorAll('nav button');
 
-function showPage(id){
-  pages.forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  buttons.forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
+function show(id){
+ pages.forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ navBtns.forEach(b=>b.classList.remove('active'));
+ event.target.classList.add('active');
 }
 
-/* ---------- TEAMS ---------- */
+/* COUNTDOWN */
+const startDate=new Date("2025-12-25T18:00:00").getTime();
+setInterval(()=>{
+ const now=new Date().getTime();
+ const d=startDate-now;
+ if(d>0){
+  document.getElementById("countdown").innerHTML=
+  Math.floor(d/86400000)+"d "+
+  Math.floor(d%86400000/3600000)+"h "+
+  Math.floor(d%3600000/60000)+"m";
+ }
+},1000);
+
+/* TEAMS */
 const teamsList=[
-"Real Madrid","Barcelona","PSG","Manchester City","Bayern",
-"Arsenal","Liverpool","Chelsea","AC Milan","Inter",
-"Juventus","Napoli","Atletico","Dortmund","Ajax",
-"Porto","Benfica","Al Nassr","Al Hilal","Al Ahly",
-"Morocco","Brazil","France","Argentina","Spain",
-"Germany","England","Italy","Portugal","Netherlands",
-"Belgium","Croatia"
+"Real Madrid","Barcelona","PSG","Man City","Bayern","Arsenal","Liverpool","Chelsea",
+"AC Milan","Inter","Juventus","Napoli","Atletico","Dortmund","Ajax","Porto",
+"Benfica","Al Nassr","Al Hilal","Brazil","France","Argentina","Spain","Germany",
+"England","Italy","Portugal","Netherlands","Belgium","Croatia","Morocco","Japan"
 ];
 
-let selectedTeams=JSON.parse(localStorage.getItem("teams"))||[];
-
+let picked=JSON.parse(localStorage.getItem("teams"))||[];
 const teamsDiv=document.getElementById("teams");
 
 function renderTeams(){
-  teamsDiv.innerHTML="";
-  teamsList.forEach(t=>{
-    const div=document.createElement("div");
-    div.className="team";
-    div.innerText=t;
-    if(selectedTeams.includes(t))div.classList.add("disabled");
-    div.onclick=()=>{
-      if(selectedTeams.length<32){
-        selectedTeams.push(t);
-        localStorage.setItem("teams",JSON.stringify(selectedTeams));
-        updateCounter();
-        renderTeams();
-        window.location.href=`https://wa.me/212600000000?text=سلام بغيت نسجل ف بطولة PES بالفرقة ${t}`;
-      }
-    }
-    teamsDiv.appendChild(div);
-  })
+ teamsDiv.innerHTML="";
+ teamsList.forEach(t=>{
+  const d=document.createElement("div");
+  d.className="team";
+  d.textContent=t;
+  if(picked.includes(t))d.classList.add("disabled");
+  d.onclick=()=>{
+   if(picked.length<32){
+    picked.push(t);
+    localStorage.setItem("teams",JSON.stringify(picked));
+    updateCounter();
+    renderTeams();
+    window.location.href=
+    `https://wa.me/212600000000?text=سلام بغيت نسجل ف بطولة PES بالفرقة ${t}`;
+   }
+  }
+  teamsDiv.appendChild(d);
+ });
 }
-
 function updateCounter(){
-  document.getElementById("counter").innerText=
-  selectedTeams.length+" / 32";
+ document.getElementById("counter").innerText=picked.length+" / 32";
 }
-
 function openTeams(){
-  document.getElementById("teamsBox").style.display="block";
-  renderTeams();
+ document.getElementById("teamsBox").style.display="block";
+ renderTeams();
 }
-
 updateCounter();
 </script>
 

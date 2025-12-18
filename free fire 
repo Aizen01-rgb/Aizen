@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Fire Elite Cup</title>
+
+<style>
+:root{
+  --gold:#ffd700;
+  --purple:#7f00ff;
+  --dark:#000;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  background:
+    radial-gradient(circle at top, #1a0033, #000);
+  color:#fff;
+  padding:20px;
+}
+
+.container{
+  max-width:430px;
+  margin:auto;
+}
+
+/* ===== LOGO CIRCLE 3D ===== */
+.logo-box{
+  display:flex;
+  justify-content:center;
+  margin:20px 0;
+}
+
+.logo-circle{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  padding:6px;
+  background:linear-gradient(145deg,var(--gold),var(--purple));
+  box-shadow:
+    0 0 25px rgba(255,215,0,0.8),
+    0 0 50px rgba(127,0,255,0.6);
+}
+
+.logo-circle img{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  background:#000;
+  box-shadow:
+    inset 0 0 15px rgba(0,0,0,0.8);
+}
+
+/* ===== CARD 3D ===== */
+.card{
+  background:linear-gradient(145deg,#0b0014,#000);
+  border-radius:22px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:
+    0 15px 30px rgba(0,0,0,0.9),
+    inset 0 0 12px rgba(255,215,0,0.1);
+  transform:perspective(1200px) rotateX(4deg);
+}
+
+/* ===== TITLES ===== */
+.title{
+  text-align:center;
+  font-size:26px;
+  color:var(--gold);
+  text-shadow:
+    0 0 12px var(--gold),
+    0 0 25px var(--purple);
+}
+
+.sub{
+  text-align:center;
+  font-size:13px;
+  color:#ccc;
+  margin-bottom:15px;
+}
+
+/* ===== COUNTDOWN ===== */
+.countdown{
+  display:flex;
+  gap:8px;
+}
+
+.time{
+  flex:1;
+  background:#000;
+  border:1px solid var(--gold);
+  border-radius:14px;
+  padding:10px;
+  text-align:center;
+  box-shadow: inset 0 0 10px rgba(255,215,0,0.4);
+}
+
+.time span{
+  font-size:20px;
+  color:#ffae00;
+  font-weight:bold;
+}
+
+.time small{
+  font-size:11px;
+  color:#aaa;
+}
+
+/* ===== INFO ===== */
+.info{
+  line-height:1.9;
+  font-size:14px;
+}
+
+.info b{ color:var(--gold); }
+
+/* ===== TOP 3 ===== */
+.rank{
+  background:#000;
+  border-radius:14px;
+  padding:12px;
+  margin:8px 0;
+  display:flex;
+  justify-content:space-between;
+  box-shadow:
+    inset 0 0 10px rgba(255,215,0,0.25);
+}
+
+.rank span{ color:var(--gold); }
+
+/* ===== FORM ===== */
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border-radius:14px;
+  border:none;
+  outline:none;
+  background:#000;
+  color:#fff;
+  box-shadow: inset 0 0 10px rgba(127,0,255,0.6);
+}
+
+/* ===== BUTTON 3D ===== */
+.btn{
+  display:block;
+  margin-top:14px;
+  padding:15px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:bold;
+  color:#000;
+  background:linear-gradient(145deg,var(--gold),#ffae00);
+  box-shadow:
+    0 7px 0 #7a5c00,
+    0 14px 25px rgba(255,215,0,0.6);
+}
+
+.btn:active{
+  transform:translateY(7px);
+  box-shadow:
+    0 3px 0 #7a5c00,
+    0 7px 15px rgba(255,215,0,0.6);
+}
+
+.footer{
+  text-align:center;
+  font-size:12px;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- LOGO -->
+<div class="logo-box">
+  <div class="logo-circle">
+    <img src="logo.png" alt="Logo">
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="card">
+  <div class="title">🔥 Free Fire Elite Cup 🔥</div>
+  <div class="sub">بطولة احترافية | مستوى عالي</div>
+
+  <div class="countdown">
+    <div class="time"><span id="d">00</span><small>يوم</small></div>
+    <div class="time"><span id="h">00</span><small>ساعة</small></div>
+    <div class="time"><span id="m">00</span><small>دقيقة</small></div>
+    <div class="time"><span id="s">00</span><small>ثانية</small></div>
+  </div>
+</div>
+
+<!-- INFO -->
+<div class="card info">
+🎮 اللعبة: <b>Free Fire</b><br>
+👥 عدد الفرق: <b>12</b><br>
+💰 المشاركة: <b>5 دراهم</b><br>
+📅 الموعد: <b>قريباً</b>
+</div>
+
+<!-- TOP 3 -->
+<div class="card">
+  <div class="title">🏆 Top 3 Rewards</div>
+  <div class="rank">🥇 الأول <span>💎 1000 جواهر</span></div>
+  <div class="rank">🥈 الثاني <span>💎 500 جواهر</span></div>
+  <div class="rank">🥉 الثالث <span>💎 250 جواهر</span></div>
+</div>
+
+<!-- REGISTER -->
+<div class="card">
+  <div class="title">📝 التسجيل</div>
+  <input placeholder="اسم اللاعب">
+  <input placeholder="ID Free Fire">
+  <input placeholder="واتساب">
+  <a class="btn">🚀 انضم الآن</a>
+</div>
+
+<div class="footer">
+© Free Fire Elite Tournament
+</div>
+
+</div>
+</body>
+</html>

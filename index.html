@@ -1,237 +1,226 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Fire Elite Cup</title>
+<title>Dipôle RC | Physique 2BAC PC</title>
 
 <style>
 :root{
-  --gold:#ffd700;
-  --purple:#7f00ff;
-  --dark:#000;
+  --bg:#0b0f1a;
+  --card:#12182b;
+  --blue:#00b4ff;
+  --text:#eaeaea;
+  --accent:#1f6fff;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: Arial, sans-serif;
-}
-
+*{box-sizing:border-box}
 body{
-  background:
-    radial-gradient(circle at top, #1a0033, #000);
-  color:#fff;
-  padding:20px;
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:radial-gradient(circle at top,var(--accent),var(--bg) 40%);
+  color:var(--text);
+}
+
+header{
+  padding:30px;
+  text-align:center;
+}
+
+header h1{
+  font-size:2.2em;
+  text-shadow:0 0 15px var(--blue);
+}
+
+header p{
+  opacity:.85;
 }
 
 .container{
-  max-width:430px;
+  max-width:1100px;
   margin:auto;
-}
-
-/* ===== LOGO CIRCLE 3D ===== */
-.logo-box{
-  display:flex;
-  justify-content:center;
-  margin:20px 0;
-}
-
-.logo-circle{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  padding:6px;
-  background:linear-gradient(145deg,var(--gold),var(--purple));
-  box-shadow:
-    0 0 25px rgba(255,215,0,0.8),
-    0 0 50px rgba(127,0,255,0.6);
-}
-
-.logo-circle img{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  object-fit:cover;
-  background:#000;
-  box-shadow:
-    inset 0 0 15px rgba(0,0,0,0.8);
-}
-
-/* ===== CARD 3D ===== */
-.card{
-  background:linear-gradient(145deg,#0b0014,#000);
-  border-radius:22px;
   padding:20px;
-  margin-bottom:20px;
-  box-shadow:
-    0 15px 30px rgba(0,0,0,0.9),
-    inset 0 0 12px rgba(255,215,0,0.1);
-  transform:perspective(1200px) rotateX(4deg);
 }
 
-/* ===== TITLES ===== */
-.title{
-  text-align:center;
-  font-size:26px;
-  color:var(--gold);
-  text-shadow:
-    0 0 12px var(--gold),
-    0 0 25px var(--purple);
+.section{
+  background:linear-gradient(145deg,#0f1528,#151c36);
+  border-radius:18px;
+  padding:25px;
+  margin-bottom:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,.6);
+  transform:perspective(1000px) rotateX(2deg);
+  transition:.4s;
 }
 
-.sub{
-  text-align:center;
-  font-size:13px;
-  color:#ccc;
+.section:hover{
+  transform:perspective(1000px) rotateX(0deg) scale(1.01);
+}
+
+.section h2{
+  color:var(--blue);
   margin-bottom:15px;
+  border-left:4px solid var(--blue);
+  padding-left:10px;
 }
 
-/* ===== COUNTDOWN ===== */
-.countdown{
-  display:flex;
-  gap:8px;
+ul{
+  padding-left:20px;
 }
 
-.time{
-  flex:1;
-  background:#000;
-  border:1px solid var(--gold);
-  border-radius:14px;
-  padding:10px;
-  text-align:center;
-  box-shadow: inset 0 0 10px rgba(255,215,0,0.4);
+li{
+  margin-bottom:8px;
 }
 
-.time span{
-  font-size:20px;
-  color:#ffae00;
-  font-weight:bold;
-}
-
-.time small{
-  font-size:11px;
-  color:#aaa;
-}
-
-/* ===== INFO ===== */
-.info{
-  line-height:1.9;
-  font-size:14px;
-}
-
-.info b{ color:var(--gold); }
-
-/* ===== TOP 3 ===== */
-.rank{
-  background:#000;
-  border-radius:14px;
+.formula{
+  background:#0b1022;
   padding:12px;
-  margin:8px 0;
-  display:flex;
-  justify-content:space-between;
-  box-shadow:
-    inset 0 0 10px rgba(255,215,0,0.25);
+  border-radius:10px;
+  margin:10px 0;
+  font-family:monospace;
+  color:#7fd3ff;
+  box-shadow:inset 0 0 10px rgba(0,180,255,.2);
 }
 
-.rank span{ color:var(--gold); }
-
-/* ===== FORM ===== */
-input{
-  width:100%;
-  padding:13px;
-  margin:8px 0;
-  border-radius:14px;
-  border:none;
-  outline:none;
-  background:#000;
-  color:#fff;
-  box-shadow: inset 0 0 10px rgba(127,0,255,0.6);
-}
-
-/* ===== BUTTON 3D ===== */
 .btn{
-  display:block;
-  margin-top:14px;
-  padding:15px;
-  border-radius:16px;
-  text-align:center;
-  font-weight:bold;
-  color:#000;
-  background:linear-gradient(145deg,var(--gold),#ffae00);
-  box-shadow:
-    0 7px 0 #7a5c00,
-    0 14px 25px rgba(255,215,0,0.6);
+  display:inline-block;
+  padding:12px 22px;
+  border-radius:30px;
+  background:linear-gradient(135deg,var(--blue),#005eff);
+  color:#fff;
+  text-decoration:none;
+  margin-top:10px;
+  box-shadow:0 10px 25px rgba(0,180,255,.4);
+  transition:.3s;
 }
 
-.btn:active{
-  transform:translateY(7px);
-  box-shadow:
-    0 3px 0 #7a5c00,
-    0 7px 15px rgba(255,215,0,0.6);
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(0,180,255,.6);
 }
 
-.footer{
+.help{
+  font-size:.9em;
+  opacity:.75;
+  margin-top:8px;
+  direction:rtl;
+}
+
+footer{
   text-align:center;
-  font-size:12px;
-  color:#777;
+  padding:20px;
+  opacity:.6;
 }
 </style>
 </head>
 
 <body>
+
+<header>
+  <h1>Dipôle RC</h1>
+  <p>Physique – 2ème Baccalauréat PC</p>
+</header>
+
 <div class="container">
 
-<!-- LOGO -->
-<div class="logo-box">
-  <div class="logo-circle">
-    <img src="logo.png" alt="Logo">
-  </div>
+<!-- Résumé -->
+<div class="section">
+<h2>Résumé du cours</h2>
+<p>
+Un dipôle RC est un circuit électrique constitué d’une résistance R
+et d’un condensateur C montés en série ou en parallèle.
+Il permet d’étudier les phénomènes de charge et de décharge du condensateur.
+</p>
+
+<p>
+Lorsqu’un condensateur est branché à un générateur, il se charge progressivement.
+Quand on enlève le générateur, il se décharge à travers la résistance.
+</p>
+
+<div class="help">⬅️ هنا ملخص مركز للدرس</div>
 </div>
 
-<!-- HEADER -->
-<div class="card">
-  <div class="title">🔥 Free Fire Elite Cup 🔥</div>
-  <div class="sub">بطولة احترافية | مستوى عالي</div>
+<!-- Points importants -->
+<div class="section">
+<h2>Points importants</h2>
+<ul>
+  <li>Le condensateur stocke de l’énergie électrique</li>
+  <li>La résistance ralentit la charge et la décharge</li>
+  <li>La tension aux bornes du condensateur varie avec le temps</li>
+  <li>La constante de temps caractérise la rapidité du phénomène</li>
+</ul>
 
-  <div class="countdown">
-    <div class="time"><span id="d">00</span><small>يوم</small></div>
-    <div class="time"><span id="h">00</span><small>ساعة</small></div>
-    <div class="time"><span id="m">00</span><small>دقيقة</small></div>
-    <div class="time"><span id="s">00</span><small>ثانية</small></div>
-  </div>
+<div class="help">⬅️ النقاط لي خاصك تحفظ</div>
 </div>
 
-<!-- INFO -->
-<div class="card info">
-🎮 اللعبة: <b>Free Fire</b><br>
-👥 عدد الفرق: <b>12</b><br>
-💰 المشاركة: <b>5 دراهم</b><br>
-📅 الموعد: <b>قريباً</b>
+<!-- Lois et formules -->
+<div class="section">
+<h2>Lois et formules</h2>
+
+<p><strong>Constante de temps :</strong></p>
+<div class="formula">τ = R × C</div>
+
+<p><strong>Charge du condensateur :</strong></p>
+<div class="formula">u<sub>C</sub>(t) = E (1 − e<sup>−t/RC</sup>)</div>
+
+<p><strong>Décharge du condensateur :</strong></p>
+<div class="formula">u<sub>C</sub>(t) = U<sub>0</sub> e<sup>−t/RC</sup></div>
+
+<p><strong>Courant électrique :</strong></p>
+<div class="formula">i(t) = C × du<sub>C</sub>/dt</div>
+
+<div class="help">⬅️ القوانين الأساسية كاملة</div>
 </div>
 
-<!-- TOP 3 -->
-<div class="card">
-  <div class="title">🏆 Top 3 Rewards</div>
-  <div class="rank">🥇 الأول <span>💎 1000 جواهر</span></div>
-  <div class="rank">🥈 الثاني <span>💎 500 جواهر</span></div>
-  <div class="rank">🥉 الثالث <span>💎 250 جواهر</span></div>
+<!-- Exemples -->
+<div class="section">
+<h2>Exemples</h2>
+
+<p><strong>Exemple 1 :</strong><br>
+Un circuit RC a R = 1 kΩ et C = 100 µF.
+Calculer la constante de temps.
+</p>
+
+<div class="formula">
+τ = R × C = 1000 × 100×10⁻⁶ = 0,1 s
 </div>
 
-<!-- REGISTER -->
-<div class="card">
-  <div class="title">📝 التسجيل</div>
-  <input placeholder="اسم اللاعب">
-  <input placeholder="ID Free Fire">
-  <input placeholder="واتساب">
-  <a class="btn">🚀 انضم الآن</a>
+<p><strong>Exemple 2 :</strong><br>
+Déterminer la tension u<sub>C</sub> après une durée t = τ.
+</p>
+
+<div class="formula">
+u<sub>C</sub>(τ) ≈ 0,63 E
 </div>
 
-<div class="footer">
-© Free Fire Elite Tournament
+<div class="help">⬅️ أمثلة محلولة بحال الامتحان</div>
+</div>
+
+<!-- Exercices -->
+<div class="section">
+<h2>Exercices</h2>
+
+<p><strong>Exercice 1 :</strong><br>
+Un dipôle RC possède R = 2 kΩ et C = 50 µF.
+1. Calculer τ  
+2. Déterminer u<sub>C</sub>(t) lors de la charge
+</p>
+
+<p><strong>Exercice 2 :</strong><br>
+Tracer l’allure de la tension du condensateur lors de la décharge.
+</p>
+
+<a href="#" class="btn" onclick="alert('راجع القوانين وطبقهم خطوة بخطوة')">
+أظهر توجيه الحل
+</a>
+
+<div class="help">⬅️ تمارين للتدريب</div>
 </div>
 
 </div>
+
+<footer>
+© Physique 2BAC PC – RC Circuit
+</footer>
+
 </body>
 </html>
